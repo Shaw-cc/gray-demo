@@ -1,5 +1,6 @@
 package com.shaw.user.controller;
 
+import com.shaw.graycore.bean.InvocationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,5 +33,11 @@ public class UserController {
         return "hello world " + msg;
     }
 
+    @GetMapping("/gray")
+    public String grayOrder() {
+        InvocationContext.setInvocation("teamId", 100);
+        String msg = restTemplate.getForObject("http://order/price", String.class);
+        return "hello world " + msg;
+    }
 
 }
